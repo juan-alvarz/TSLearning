@@ -1,0 +1,75 @@
+import {
+  DiaryEntry,
+  NonSensitiveInfoDiaryEntry,
+  Visibility,
+  Weather,
+} from "../types";
+
+const data = [
+  {
+    id: 1,
+    date: "2017-01-01",
+    weather: "rainy",
+    visibility: "poor",
+    comment: "Pretty scary flight, I'm glad I'm alive",
+  },
+  {
+    id: 2,
+    date: "2017-04-01",
+    weather: "sunny",
+    visibility: "good",
+    comment: "Everything went better than expected, I'm learning much",
+  },
+  {
+    id: 3,
+    date: "2017-04-15",
+    weather: "windy",
+    visibility: "good",
+    comment: "I'm getting pretty confident although I hit a flock of birds",
+  },
+  {
+    id: 4,
+    date: "2017-05-11",
+    weather: "cloudy",
+    visibility: "good",
+    comment: "I almost failed the landing but I survived",
+  },
+];
+
+const diaries: DiaryEntry[] = data as DiaryEntry[];
+
+export const getEntries = () => diaries;
+
+export const findById = (id: number): DiaryEntry | undefined => {
+  const entry = diaries.find((d) => d.id === id);
+  return entry;
+};
+
+export const getEntriesWithoutSensitiveInfo =
+  (): NonSensitiveInfoDiaryEntry[] => {
+    return diaries.map(({ id, date, weather, visibility }) => {
+      return {
+        id,
+        date,
+        weather,
+        visibility,
+      };
+    });
+  };
+
+export const addDiary = (
+  date: string,
+  weather: Weather,
+  visibility: Visibility,
+  comment: string
+): DiaryEntry => {
+  const newDiaryEntry = {
+    id: diaries.length + 1,
+    date,
+    weather,
+    visibility,
+    comment,
+  };
+  diaries.push(newDiaryEntry);
+  return newDiaryEntry;
+};
